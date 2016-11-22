@@ -1,7 +1,7 @@
 {
   "generator-jhipster": {
     "jhipsterVersion": "3.11.0",
-    "baseName": "21points",
+    "baseName": "98points",
     "packageName": "org.jhipster.health",
     "packageFolder": "org/jhipster/health",
     "serverPort": "8080",

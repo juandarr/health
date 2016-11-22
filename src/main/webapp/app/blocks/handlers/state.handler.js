@@ -35,7 +35,7 @@
             });
 
             var stateChangeSuccess = $rootScope.$on('$stateChangeSuccess',  function(event, toState, toParams, fromState, fromParams) {
-                var titleKey = '21points' ;
+                var titleKey = '98Points' ;
 
                 // Set the page title key to the one configured in state or use default one
                 if (toState.data.pageTitle) {

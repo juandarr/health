@@ -47,7 +47,7 @@
             url: '/user/:login',
             data: {
                 authorities: ['ROLE_ADMIN'],
-                pageTitle: '21points'
+                pageTitle: '98Points'
             },
             views: {
                 'content@': {

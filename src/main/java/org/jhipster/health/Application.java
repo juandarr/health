@@ -32,7 +32,7 @@ public class Application {
     private Environment env;
 
     /**
-     * Initializes 21points.
+     * Initializes 98points.
      * <p>
      * Spring profiles can be configured with a program arguments --spring.profiles.active=your-active-profile
      * <p>
