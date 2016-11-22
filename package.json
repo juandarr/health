@@ -1,7 +1,7 @@
 {
-  "name": "98-points",
+  "name": "21-points",
   "version": "0.0.0",
-  "description": "Description for 98points",
+  "description": "Description for 21points",
   "private": true,
   "cacheDirectories": [
     "node_modules",

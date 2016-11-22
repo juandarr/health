@@ -13,12 +13,12 @@
 
 spring:
     application:
-        name: 98points
+        name: 21points
     jackson:
         serialization.write_dates_as_timestamps: false
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:h2:mem:98points;DB_CLOSE_DELAY=-1
+        url: jdbc:h2:mem:21points;DB_CLOSE_DELAY=-1
         name:
         username:
         password:
@@ -73,8 +73,8 @@ jhipster:
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true
     swagger:
-        title: 98points API
-        description: 98points API documentation
+        title: 21points API
+        description: 21points API documentation
         version: 0.0.1
         termsOfServiceUrl:
         contactName:

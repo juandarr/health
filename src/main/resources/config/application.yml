@@ -18,7 +18,7 @@ management:
             enabled: false # When using the MailService, configure an SMTP server and set this to true
 spring:
     application:
-        name: 98points
+        name: 21points
     profiles:
         # The commented value for `active` can be replaced with valid spring profiles to load.
         # Otherwise, it will be filled in by gradle when building the WAR file
@@ -66,10 +66,10 @@ jhipster:
         #allow-credentials: true
         #max-age: 1800
     mail:
-        from: 98points@localhost
+        from: 21points@localhost
     swagger:
-        title: 98points API
-        description: 98points API documentation
+        title: 21points API
+        description: 21points API documentation
         version: 0.0.1
         termsOfServiceUrl:
         contactName:

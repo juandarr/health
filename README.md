@@ -1,4 +1,4 @@
-# 98points
+# 21points
 
 This application was generated using JHipster 3.11.0, you can find documentation and help at [https://jhipster.github.io/documentation-archive/v3.11.0](https://jhipster.github.io/documentation-archive/v3.11.0).
 
@@ -31,7 +31,7 @@ For further instructions on how to develop with JHipster, have a look at [Using 
 
 ## Building for production
 
-To optimize the 98points application for production, run:
+To optimize the 21points application for production, run:
 
     ./gradlew -Pprod clean bootRepackage
 

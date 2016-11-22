@@ -145,7 +145,7 @@ public class JHipsterProperties {
 
     public static class Mail {
 
-        private String from = "98points@localhost";
+        private String from = "21points@localhost";
 
         private String baseUrl = "";
 
@@ -218,9 +218,9 @@ public class JHipsterProperties {
 
     public static class Swagger {
 
-        private String title = "98points API";
+        private String title = "21points API";
 
-        private String description = "98points API documentation";
+        private String description = "21points API documentation";
 
         private String version = "0.0.1";
 
@@ -350,7 +350,7 @@ public class JHipsterProperties {
 
             private int port = 2003;
 
-            private String prefix = "98points";
+            private String prefix = "21points";
 
             public boolean isEnabled() {
                 return enabled;
