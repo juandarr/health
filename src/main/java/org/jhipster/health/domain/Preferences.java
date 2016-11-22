@@ -36,7 +36,7 @@ public class Preferences implements Serializable {
     private Units weight_units;
 
     @OneToOne
-    //@JoinColumn(unique = true)
+    @JoinColumn(unique = true)
     private User user;
 
     public Long getId() {
