@@ -41,5 +41,9 @@
         timeToLiveSeconds="3600">
     </cache>
 
+    <cache name="org.jhipster.health.domain.Preferences"
+        timeToLiveSeconds="3600">
+    </cache>
+
     <!-- jhipster-needle-ehcache-add-entry -->
 </ehcache>
