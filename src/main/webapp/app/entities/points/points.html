@@ -1,0 +1,72 @@
+<div>
+    <h2>Points</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="points.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Create new Points
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.reset()">
+                    <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="date"><span>Date</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="exercise"><span>Exercise</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="meals"><span>Meals</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="sleep"><span>Sleep</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="lesson"><span>Lesson</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="overall"><span>Overall</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="notes"><span>Notes</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="user.id"><span>User</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody infinite-scroll="vm.loadPage(vm.page + 1)" infinite-scroll-disabled="vm.page >= vm.links['last']">
+                <tr ng-repeat="points in vm.points track by points.id">
+                    <td><a ui-sref="points-detail({id:points.id})">{{points.id}}</a></td>
+                        <td>{{points.date | date:'mediumDate'}}</td>
+                    <td>{{points.exercise}}</td>
+                    <td>{{points.meals}}</td>
+                    <td>{{points.sleep}}</td>
+                    <td>{{points.lesson}}</td>
+                    <td>{{points.overall}}</td>
+                    <td>{{points.notes}}</td>
+                    <td>
+                        {{points.user.id}}
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="points-detail({id:points.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="points.edit({id:points.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="points.delete({id:points.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

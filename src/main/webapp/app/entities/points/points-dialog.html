@@ -1,0 +1,124 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myPointsLabel">Create or edit a Points</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.points.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.points.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_date">Date</label>
+                <div class="input-group">
+                    <input id="field_date" type="text" class="form-control" name="date" uib-datepicker-popup="{{dateformat}}" ng-model="vm.points.date" is-open="vm.datePickerOpenStatus.date"
+                    required/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('date')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+            <div ng-show="editForm.date.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.date.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_exercise">Exercise</label>
+            <input type="checkbox" class="form-control" name="exercise" id="field_exercise"
+                    ng-model="vm.points.exercise"
+                     />
+            <div ng-show="editForm.exercise.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.exercise.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_meals">Meals</label>
+            <input type="number" class="form-control" name="meals" id="field_meals"
+                    ng-model="vm.points.meals"
+                    required />
+            <div ng-show="editForm.meals.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.meals.$error.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.meals.$error.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_sleep">Sleep</label>
+            <input type="checkbox" class="form-control" name="sleep" id="field_sleep"
+                    ng-model="vm.points.sleep"
+                     />
+            <div ng-show="editForm.sleep.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.sleep.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_lesson">Lesson</label>
+            <input type="text" class="form-control" name="lesson" id="field_lesson"
+                    ng-model="vm.points.lesson"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_overall">Overall</label>
+            <input type="number" class="form-control" name="overall" id="field_overall"
+                    ng-model="vm.points.overall"
+                    required min="1" max="10" />
+            <div ng-show="editForm.overall.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.overall.$error.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.overall.$error.min" translate-value-min="1">
+                    This field should be more than 1.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.overall.$error.max">
+                    This field cannot be more than 10.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.overall.$error.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_notes">Notes</label>
+            <input type="text" class="form-control" name="notes" id="field_notes"
+                    ng-model="vm.points.notes"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label for="field_user">User</label>
+            <select class="form-control" id="field_user" name="user" ng-model="vm.points.user" ng-options="user as user.id for user in vm.users track by user.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>
