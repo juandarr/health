@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('21PointsApp')
+        .module('98PointsApp')
         .config(bootstrapMaterialDesignConfig);
 
     compileServiceConfig.$inject = [];
