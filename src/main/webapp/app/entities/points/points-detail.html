@@ -8,23 +8,25 @@
         <dd>
             <span>{{vm.points.date | date:'mediumDate'}}</span>
         </dd>
-        <dt><span>Exercise</span></dt>
-        <dd>
-            <span>{{vm.points.exercise}}</span>
+        <dt><span>Did exercise?</span></dt>
+        <dd class="text-left">
+            <i class="glyphicon" ng-class="{'glyphicon-ok text-success': vm.points.exercise,
+                         'glyphicon-remove text-danger': !vm.points.exercise}"></i>
         </dd>
-        <dt><span>Meals</span></dt>
+        <dt><span>Ate meals?</span></dt>
         <dd>
             <span>{{vm.points.meals}}</span>
         </dd>
-        <dt><span>Sleep</span></dt>
-        <dd>
-            <span>{{vm.points.sleep}}</span>
+        <dt><span>Sleep well?</span></dt>
+        <dd class="text-left">
+            <i class="glyphicon" ng-class="{'glyphicon-ok text-success': vm.points.sleep,
+                         'glyphicon-remove text-danger': !vm.points.sleep}"></i>
         </dd>
-        <dt><span>Lesson</span></dt>
+        <dt><span>Lesson of the day</span></dt>
         <dd>
             <span>{{vm.points.lesson}}</span>
         </dd>
-        <dt><span>Overall</span></dt>
+        <dt><span>Overall (over 10)</span></dt>
         <dd>
             <span>{{vm.points.overall}}</span>
         </dd>

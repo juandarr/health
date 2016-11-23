@@ -9,8 +9,10 @@
 
     function PointsDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Points, User) {
         var vm = this;
-
         vm.points = entity;
+        if (vm.points.id == null) {
+            $scope.vm.points.date = new Date();
+        }
         vm.clear = clear;
         vm.datePickerOpenStatus = {};
         vm.openCalendar = openCalendar;
@@ -18,7 +20,7 @@
         vm.users = User.query();
 
         $timeout(function (){
-            angular.element('.form-group:eq(1)>input').focus();
+            angular.element('.form-group:eq(0)>input').focus();
         });
 
         function clear () {

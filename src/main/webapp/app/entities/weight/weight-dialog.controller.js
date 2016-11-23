@@ -11,6 +11,11 @@
         var vm = this;
 
         vm.weight = entity;
+
+        if (vm.weight.id == null){
+            $scope.vm.weight.date = new Date();
+        }
+
         vm.clear = clear;
         vm.datePickerOpenStatus = {};
         vm.openCalendar = openCalendar;
@@ -18,7 +23,7 @@
         vm.users = User.query();
 
         $timeout(function (){
-            angular.element('.form-group:eq(1)>input').focus();
+            angular.element('.form-group:eq(0)>input').focus();
         });
 
         function clear () {

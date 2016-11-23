@@ -22,11 +22,11 @@
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.reset()">
                     <!--<th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>-->
                     <th jh-sort-by="date"><span>Date</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="exercise"><span>Exercise</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="meals"><span>Meals</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="sleep"><span>Sleep</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="lesson"><span>Lesson</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="overall"><span>Overall</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="exercise"><span>Did exercise?</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="meals"><span>Ate meals?</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="sleep"><span>Sleep well?</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="lesson"><span>Lesson of the day</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="overall"><span>Overall (over 10)</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="notes"><span>Notes</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="user.id"><span>User</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
@@ -36,11 +36,17 @@
                 <tr ng-repeat="points in vm.points track by points.id">
                     <!--<td><a ui-sref="points-detail({id:points.id})">{{points.id}}</a></td>-->
                     <td>{{points.date | date:'mediumDate'}}</td>
-                    <td>{{points.exercise}}</td>
-                    <td>{{points.meals}}</td>
-                    <td>{{points.sleep}}</td>
+                    <td class="text-center">
+                        <i class="glyphicon" ng-class="{'glyphicon-ok text-success': points.exercise,
+                         'glyphicon-remove text-danger': !points.exercise}"></i>
+                    </td>
+                    <td class="text-center">{{points.meals}}</td>
+                    <td class="text-center">
+                        <i class="glyphicon" ng-class="{'glyphicon-ok text-success': points.sleep,
+                         'glyphicon-remove text-danger': !points.sleep}"></i>
+                    </td>
                     <td>{{points.lesson}}</td>
-                    <td>{{points.overall}}</td>
+                    <td class="text-center">{{points.overall}}</td>
                     <td>{{points.notes}}</td>
                     <td>{{points.user.login}}</td>
                     <td class="text-right">
