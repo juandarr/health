@@ -7,7 +7,7 @@
                 <button class="btn btn-primary" ui-sref="weight.new" >
                     <span class="glyphicon glyphicon-plus"></span>
                     <span >
-                        Create new Weight
+                        New weight note
                     </span>
                 </button>
             </div>
@@ -18,7 +18,7 @@
         <table class="jh-table table table-striped">
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.reset()">
-                    <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <!--<th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>-->
                     <th jh-sort-by="date"><span>Date</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="weight_value"><span data-translate="21PointsApp.weight.weight_value">Weight Value</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="user.id"><span>User</span> <span class="glyphicon glyphicon-sort"></span></th>
@@ -27,12 +27,10 @@
             </thead>
             <tbody infinite-scroll="vm.loadPage(vm.page + 1)" infinite-scroll-disabled="vm.page >= vm.links['last']">
                 <tr ng-repeat="weight in vm.weights track by weight.id">
-                    <td><a ui-sref="weight-detail({id:weight.id})">{{weight.id}}</a></td>
+                    <!--<td><a ui-sref="weight-detail({id:weight.id})">{{weight.id}}</a></td>-->
                         <td>{{weight.date | date:'mediumDate'}}</td>
                     <td>{{weight.weight_value}}</td>
-                    <td>
-                        {{weight.user.id}}
-                    </td>
+                    <td>{{weight.user.login}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

@@ -1,5 +1,5 @@
 <div>
-    <h2>Points</h2>
+    <h2>Evolution</h2>
     <jhi-alert></jhi-alert>
     <div class="container-fluid">
         <div class="row">
@@ -7,7 +7,7 @@
                 <button class="btn btn-primary" ui-sref="points.new" >
                     <span class="glyphicon glyphicon-plus"></span>
                     <span >
-                        Create new Points
+                        New day
                     </span>
                 </button>
             </div>
@@ -18,7 +18,7 @@
         <table class="jh-table table table-striped">
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.reset()">
-                    <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <!--<th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>-->
                     <th jh-sort-by="date"><span>Date</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="exercise"><span>Exercise</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="meals"><span>Meals</span> <span class="glyphicon glyphicon-sort"></span></th>
@@ -32,17 +32,15 @@
             </thead>
             <tbody infinite-scroll="vm.loadPage(vm.page + 1)" infinite-scroll-disabled="vm.page >= vm.links['last']">
                 <tr ng-repeat="points in vm.points track by points.id">
-                    <td><a ui-sref="points-detail({id:points.id})">{{points.id}}</a></td>
-                        <td>{{points.date | date:'mediumDate'}}</td>
+                    <!--<td><a ui-sref="points-detail({id:points.id})">{{points.id}}</a></td>-->
+                    <td>{{points.date | date:'mediumDate'}}</td>
                     <td>{{points.exercise}}</td>
                     <td>{{points.meals}}</td>
                     <td>{{points.sleep}}</td>
                     <td>{{points.lesson}}</td>
                     <td>{{points.overall}}</td>
                     <td>{{points.notes}}</td>
-                    <td>
-                        {{points.user.id}}
-                    </td>
+                    <td>{{points.user.login}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

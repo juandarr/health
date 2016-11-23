@@ -7,7 +7,7 @@
                 <button class="btn btn-primary" ui-sref="preferences.new" >
                     <span class="glyphicon glyphicon-plus"></span>
                     <span >
-                        Create new Preferences
+                        New Preference
                     </span>
                 </button>
             </div>
@@ -18,7 +18,7 @@
         <table class="jh-table table table-striped">
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
-                    <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <!--<th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>-->
                     <th jh-sort-by="weekly_goal"><span data-translate="21PointsApp.preferences.weekly_goal">Weekly Goal</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="weight_units"><span data-translate="21PointsApp.preferences.weight_units">Weight Units</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="user.undefined"><span>User</span> <span class="glyphicon glyphicon-sort"></span></th>
@@ -27,11 +27,11 @@
             </thead>
             <tbody>
                 <tr ng-repeat="preferences in vm.preferences track by preferences.id">
-                    <td><a ui-sref="preferences-detail({id:preferences.id})">{{preferences.id}}</a></td>
+                    <!--<td><a ui-sref="preferences-detail({id:preferences.id})">{{preferences.id}}</a></td>-->
                     <td>{{preferences.weekly_goal}}</td>
                     <td data-translate="{{'21PointsApp.Units.' + preferences.weight_units}}">{{preferences.weight_units}}</td>
                     <td>
-                        {{preferences.user.id}}
+                        {{preferences.user.login}}
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
