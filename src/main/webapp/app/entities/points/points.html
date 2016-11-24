@@ -28,7 +28,7 @@
                     <th jh-sort-by="lesson"><span>Lesson of the day</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="overall"><span>Overall (over 10)</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="notes"><span>Notes</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="user.id"><span>User</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="user.id" has-authority="ROLE_ADMIN"><span>User</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -48,7 +48,7 @@
                     <td>{{points.lesson}}</td>
                     <td class="text-center">{{points.overall}}</td>
                     <td>{{points.notes}}</td>
-                    <td>{{points.user.login}}</td>
+                    <td has-authority="ROLE_ADMIN">{{points.user.login}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

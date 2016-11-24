@@ -24,7 +24,7 @@
                     <!--<th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>-->
                     <th jh-sort-by="date"><span>Date</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="weight_value"><span data-translate="21PointsApp.weight.weight_value">Weight Value</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="user.id"><span>User</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="user.id" has-authority="ROLE_ADMIN"><span>User</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -33,7 +33,7 @@
                     <!--<td><a ui-sref="weight-detail({id:weight.id})">{{weight.id}}</a></td>-->
                         <td>{{weight.date | date:'mediumDate'}}</td>
                     <td>{{weight.weight_value}}</td>
-                    <td>{{weight.user.login}}</td>
+                    <td has-authority="ROLE_ADMIN">{{weight.user.login}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

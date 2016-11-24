@@ -3,7 +3,11 @@ package org.jhipster.health.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import org.jhipster.health.domain.Preferences;
 
+import org.jhipster.health.domain.User;
 import org.jhipster.health.repository.PreferencesRepository;
+import org.jhipster.health.repository.UserRepository;
+import org.jhipster.health.security.AuthoritiesConstants;
+import org.jhipster.health.security.SecurityUtils;
 import org.jhipster.health.web.rest.util.HeaderUtil;
 import org.jhipster.health.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -30,10 +34,12 @@ import java.util.Optional;
 public class PreferencesResource {
 
     private final Logger log = LoggerFactory.getLogger(PreferencesResource.class);
-        
+
     @Inject
     private PreferencesRepository preferencesRepository;
 
+    @Inject
+    private UserRepository userRepository;
     /**
      * POST  /preferences : Create a new preferences.
      *
@@ -48,6 +54,13 @@ public class PreferencesResource {
         if (preferences.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("preferences", "idexists", "A new preferences cannot already have an ID")).body(null);
         }
+
+        if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN))
+        {
+            log.debug("No admin user, using current user: {}", SecurityUtils.getCurrentUserLogin());
+            preferences.setUser(userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get());
+        }
+
         Preferences result = preferencesRepository.save(preferences);
         return ResponseEntity.created(new URI("/api/preferences/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("preferences", result.getId().toString()))

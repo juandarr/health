@@ -34,8 +34,8 @@
         <dd>
             <span>{{vm.points.notes}}</span>
         </dd>
-        <dt><span>User</span></dt>
-        <dd>
+        <dt has-authority="ROLE_ADMIN"><span>User</span></dt>
+        <dd has-authority="ROLE_ADMIN">
             {{vm.points.user.login}}
         </dd>
     </dl>

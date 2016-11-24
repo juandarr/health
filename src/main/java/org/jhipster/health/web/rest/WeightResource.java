@@ -1,9 +1,13 @@
 package org.jhipster.health.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import org.jhipster.health.domain.User;
 import org.jhipster.health.domain.Weight;
 
 import org.jhipster.health.repository.WeightRepository;
+import org.jhipster.health.repository.UserRepository;
+import org.jhipster.health.security.AuthoritiesConstants;
+import org.jhipster.health.security.SecurityUtils;
 import org.jhipster.health.web.rest.util.HeaderUtil;
 import org.jhipster.health.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -30,9 +34,12 @@ import java.util.Optional;
 public class WeightResource {
 
     private final Logger log = LoggerFactory.getLogger(WeightResource.class);
-        
+
     @Inject
     private WeightRepository weightRepository;
+
+    @Inject
+    private UserRepository userRepository;
 
     /**
      * POST  /weights : Create a new weight.
@@ -48,6 +55,13 @@ public class WeightResource {
         if (weight.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("weight", "idexists", "A new weight cannot already have an ID")).body(null);
         }
+
+        if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN))
+        {
+            log.debug("No admin user, using current user: {}", SecurityUtils.getCurrentUserLogin());
+            weight.setUser(userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get());
+        }
+
         Weight result = weightRepository.save(weight);
         return ResponseEntity.created(new URI("/api/weights/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("weight", result.getId().toString()))

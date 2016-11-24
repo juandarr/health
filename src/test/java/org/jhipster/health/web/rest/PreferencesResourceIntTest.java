@@ -4,6 +4,7 @@ import org.jhipster.health.Application;
 
 import org.jhipster.health.domain.Preferences;
 import org.jhipster.health.repository.PreferencesRepository;
+import org.jhipster.health.repository.UserRepository;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -19,6 +20,8 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.WebApplicationContext;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -27,6 +30,8 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
 import org.jhipster.health.domain.enumeration.Units;
 /**
@@ -48,6 +53,9 @@ public class PreferencesResourceIntTest {
     private PreferencesRepository preferencesRepository;
 
     @Inject
+    private UserRepository userRepository;
+
+    @Inject
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Inject
@@ -60,11 +68,15 @@ public class PreferencesResourceIntTest {
 
     private Preferences preferences;
 
+    @Autowired
+    private WebApplicationContext context;
+
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
         PreferencesResource preferencesResource = new PreferencesResource();
         ReflectionTestUtils.setField(preferencesResource, "preferencesRepository", preferencesRepository);
+        ReflectionTestUtils.setField(preferencesResource, "userRepository", userRepository);
         this.restPreferencesMockMvc = MockMvcBuilders.standaloneSetup(preferencesResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
@@ -92,6 +104,12 @@ public class PreferencesResourceIntTest {
     @Transactional
     public void createPreferences() throws Exception {
         int databaseSizeBeforeCreate = preferencesRepository.findAll().size();
+
+        // Create security-aware MockMVC
+        restPreferencesMockMvc = MockMvcBuilders
+            .webAppContextSetup(context)
+            .apply(springSecurity())
+            .build();
 
         // Create the Preferences
 

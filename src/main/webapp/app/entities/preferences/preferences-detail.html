@@ -12,8 +12,8 @@
         <dd>
             <span data-translate="{{'21PointsApp.Units.' + vm.preferences.weight_units}}">{{vm.preferences.weight_units}}</span>
         </dd>
-        <dt><span>User</span></dt>
-        <dd>
+        <dt has-authority="ROLE_ADMIN"><span>User</span></dt>
+        <dd has-authority="ROLE_ADMIN">
             {{vm.preferences.user.login}}
         </dd>
     </dl>

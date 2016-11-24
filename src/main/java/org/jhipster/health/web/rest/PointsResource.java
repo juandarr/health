@@ -4,6 +4,9 @@ import com.codahale.metrics.annotation.Timed;
 import org.jhipster.health.domain.Points;
 
 import org.jhipster.health.repository.PointsRepository;
+import org.jhipster.health.repository.UserRepository;
+import org.jhipster.health.security.AuthoritiesConstants;
+import org.jhipster.health.security.SecurityUtils;
 import org.jhipster.health.web.rest.util.HeaderUtil;
 import org.jhipster.health.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -30,9 +33,12 @@ import java.util.Optional;
 public class PointsResource {
 
     private final Logger log = LoggerFactory.getLogger(PointsResource.class);
-        
+
     @Inject
     private PointsRepository pointsRepository;
+
+    @Inject
+    private UserRepository userRepository;
 
     /**
      * POST  /points : Create a new points.
@@ -48,6 +54,13 @@ public class PointsResource {
         if (points.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("points", "idexists", "A new points cannot already have an ID")).body(null);
         }
+
+        if (!SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN))
+        {
+            log.debug("No admin user, using current user: {}", SecurityUtils.getCurrentUserLogin());
+            points.setUser(userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get());
+        }
+
         Points result = pointsRepository.save(points);
         return ResponseEntity.created(new URI("/api/points/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("points", result.getId().toString()))

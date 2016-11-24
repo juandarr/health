@@ -4,6 +4,7 @@ import org.jhipster.health.Application;
 
 import org.jhipster.health.domain.Weight;
 import org.jhipster.health.repository.WeightRepository;
+import org.jhipster.health.repository.UserRepository;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -19,6 +20,8 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.WebApplicationContext;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -29,6 +32,8 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
 /**
  * Test class for the WeightResource REST controller.
@@ -49,6 +54,9 @@ public class WeightResourceIntTest {
     private WeightRepository weightRepository;
 
     @Inject
+    private UserRepository userRepository;
+
+    @Inject
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Inject
@@ -61,11 +69,15 @@ public class WeightResourceIntTest {
 
     private Weight weight;
 
+    @Autowired
+    private WebApplicationContext context;
+
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
         WeightResource weightResource = new WeightResource();
         ReflectionTestUtils.setField(weightResource, "weightRepository", weightRepository);
+        ReflectionTestUtils.setField(weightResource, "userRepository", userRepository);
         this.restWeightMockMvc = MockMvcBuilders.standaloneSetup(weightResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
@@ -93,6 +105,12 @@ public class WeightResourceIntTest {
     @Transactional
     public void createWeight() throws Exception {
         int databaseSizeBeforeCreate = weightRepository.findAll().size();
+
+        // Create security-aware MockMVC
+        restWeightMockMvc = MockMvcBuilders
+            .webAppContextSetup(context)
+            .apply(springSecurity())
+            .build();
 
         // Create the Weight
 
