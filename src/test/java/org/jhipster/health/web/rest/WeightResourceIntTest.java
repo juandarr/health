@@ -115,6 +115,7 @@ public class WeightResourceIntTest {
         // Create the Weight
 
         restWeightMockMvc.perform(post("/api/weights")
+                .with(user("user"))
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(weight)))
                 .andExpect(status().isCreated());
@@ -169,8 +170,15 @@ public class WeightResourceIntTest {
         // Initialize the database
         weightRepository.saveAndFlush(weight);
 
+        // create security-aware mockMvc
+        restWeightMockMvc = MockMvcBuilders
+            .webAppContextSetup(context)
+            .apply(springSecurity())
+            .build();
+
         // Get all the weights
-        restWeightMockMvc.perform(get("/api/weights?sort=id,desc"))
+        restWeightMockMvc.perform(get("/api/weights?sort=id,desc")
+                .with(user("admin").roles("ADMIN")))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(weight.getId().intValue())))

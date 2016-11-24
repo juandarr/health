@@ -101,7 +101,16 @@ public class PreferencesResource {
     public ResponseEntity<List<Preferences>> getAllPreferences(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Preferences");
-        Page<Preferences> page = preferencesRepository.findAll(pageable);
+
+        Page<Preferences> page;
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN))
+        {
+            page = preferencesRepository.findAll(pageable);
+        }else
+        {
+            page = preferencesRepository.findAllForCurrentUser(pageable);
+        }
+
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/preferences");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

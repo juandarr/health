@@ -114,6 +114,7 @@ public class PreferencesResourceIntTest {
         // Create the Preferences
 
         restPreferencesMockMvc.perform(post("/api/preferences")
+                .with(user("user"))
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(preferences)))
                 .andExpect(status().isCreated());
@@ -168,8 +169,15 @@ public class PreferencesResourceIntTest {
         // Initialize the database
         preferencesRepository.saveAndFlush(preferences);
 
+        // create security-aware mockMvc
+        restPreferencesMockMvc = MockMvcBuilders
+            .webAppContextSetup(context)
+            .apply(springSecurity())
+            .build();
+
         // Get all the preferences
-        restPreferencesMockMvc.perform(get("/api/preferences?sort=id,desc"))
+        restPreferencesMockMvc.perform(get("/api/preferences?sort=id,desc")
+                .with(user("admin").roles("ADMIN")))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(preferences.getId().intValue())))
