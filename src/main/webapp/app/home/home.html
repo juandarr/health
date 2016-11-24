@@ -10,6 +10,10 @@
             <div ng-switch="vm.isAuthenticated()">
                 <div class="alert alert-success" ng-switch-when="true">
                     You are logged in as user "{{vm.account.login}}".
+                    <div class="container-fluid">
+                    <label class="ssv-big-bold-label">Score: </label>
+                    <label class="ssv-big-bold-label">{{vm.account.login}}</label>
+                    </div>
                 </div>
 
                 <div class="alert alert-warning" ng-switch-when="false">
