@@ -54,6 +54,23 @@ public class Points implements Serializable {
     @ManyToOne
     private User user;
 
+    public Points()
+    {
+
+    }
+    public Points(LocalDate localDate, boolean b, int i, boolean b1, String s, int i1, String s1, User user) {
+
+        this.date = localDate;
+        this.exercise = b;
+        this.meals = i;
+        this.sleep=b1;
+        this.lesson = s;
+        this.overall = i1;
+        this.notes = s1;
+        this.user = user;
+
+    }
+
     public Long getId() {
         return id;
     }
@@ -115,7 +132,7 @@ public class Points implements Serializable {
     }
 
     public String getLesson() {
-        return lesson;
+       return lesson;
     }
 
     public Points lesson(String lesson) {

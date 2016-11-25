@@ -8,12 +8,25 @@
             <p class="lead">This is your homepage</p>
 
             <div ng-switch="vm.isAuthenticated()">
-                <div class="alert alert-success" ng-switch-when="true">
+                <div class="alert alert-info" ng-switch-when="true">
                     You are logged in as user "{{vm.account.login}}".
                     <div class="container-fluid">
                         <div class="text-center">
-                            <label class="ssv-big-bold-label">Current score: </label>
-                            <label class="ssv-big-bold-label">{{vm.account.login}}</label>
+
+                            <label class="ssv-big-bold-label">Current score for the week of {{vm.pointsThisWeek.week}}:</label>
+                        </div>
+                        <div class="row text-center">
+                            <div class="col-md-10">
+                                <div class="progress progress-lg" ng-show="vm.pointsThisWeek.points">
+                                    <div class="progress-bar progress-bar-success progress-bar-striped" role= "progressbar" aria-valuenow="{{vm.pointsThisWeek.points}}"
+                                         aria-valuemin="0" aria-valuemax="98" style="width:{{vm.pointsPercentage}}%">
+                                    {{vm.pointsThisWeek.points}} / Goal: 98
+                                    </div>
+                                </div>
+                                <alert type="info" ng-hide="vm.pointsThisWeek.points">
+                                    No points yet this week, better get moving!
+                                </alert>
+                        </div>
                         </div>
                         <div class="text-center">
                             <button class="btn btn-primary" ui-sref="points.add">

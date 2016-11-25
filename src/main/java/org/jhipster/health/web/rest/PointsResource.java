@@ -9,6 +9,9 @@ import org.jhipster.health.security.AuthoritiesConstants;
 import org.jhipster.health.security.SecurityUtils;
 import org.jhipster.health.web.rest.util.HeaderUtil;
 import org.jhipster.health.web.rest.util.PaginationUtil;
+import org.jhipster.health.web.rest.vm.PointsPerWeek;
+import org.joda.time.DateTimeConstants;
+import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -144,6 +147,47 @@ public class PointsResource {
         log.debug("REST request to delete Points : {}", id);
         pointsRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("points", id.toString())).build();
+    }
+
+    public Integer toInt(Boolean val)
+    {
+        if (val) return 1;
+        else  return 0;
+    }
+
+    public Integer isEmp(Object o)
+    {
+        if (o == null)  return 0;
+        else if (o.toString().length()==0) return 0;
+        else return 3;
+    }
+
+    /**
+     * GET /points -> get all the points for the current week.
+     */
+    @RequestMapping(value = "/points-this-week")
+    @Timed
+    public ResponseEntity<PointsPerWeek> getPointsThisWeek() {
+        // Get current date
+        LocalDate now = new LocalDate();
+        // Get first day of week
+        LocalDate sWeek = now.withDayOfWeek(DateTimeConstants.MONDAY);
+        // Get last day of week
+        LocalDate eWeek = now.withDayOfWeek(DateTimeConstants.SUNDAY);
+
+        java.time.LocalDate startOfWeek = java.time.LocalDate.of(sWeek.getYear(),sWeek.getMonthOfYear(),sWeek.getDayOfMonth());
+        java.time.LocalDate endOfWeek = java.time.LocalDate.of(eWeek.getYear(),eWeek.getMonthOfYear(),eWeek.getDayOfMonth());
+
+        log.debug("Looking for points between: {} and {}", startOfWeek, endOfWeek);
+        List<Points> points = pointsRepository.findAllByDateBetween(startOfWeek, endOfWeek);
+        // filter by current user and sum the points
+        Integer numPoints = points.stream()
+            .filter(p -> p.getUser().getLogin().equals(SecurityUtils.getCurrentUserLogin()))
+            .mapToInt(p -> p.getMeals()+ toInt(p.isExercise())*5+toInt(p.isSleep())*3 + isEmp(p.getLesson()) )
+            .sum();
+
+        PointsPerWeek count = new PointsPerWeek(startOfWeek, numPoints);
+        return new ResponseEntity<>(count, HttpStatus.OK);
     }
 
 }

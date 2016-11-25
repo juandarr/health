@@ -180,6 +180,9 @@ dependencies {
     compile "io.springfox:springfox-bean-validators:${springfox_version}"
     compile "mysql:mysql-connector-java"
     compile "org.mapstruct:mapstruct-jdk8:${mapstruct_version}"
+    // https://mvnrepository.com/artifact/joda-time/joda-time
+    compile group: 'joda-time', name: 'joda-time', version: '2.3'
+
     testCompile "com.jayway.awaitility:awaitility:${awaility_version}"
     testCompile "com.jayway.jsonpath:json-path"
     testCompile "org.springframework.boot:spring-boot-starter-test"
