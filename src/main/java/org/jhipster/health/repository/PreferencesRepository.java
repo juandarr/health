@@ -16,4 +16,7 @@ public interface PreferencesRepository extends JpaRepository<Preferences,Long> {
 
     @Query("select preferences from Preferences preferences where preferences.user.login = ?#{principal.username}")
     Page<Preferences> findAllForCurrentUser(Pageable pageable);
+
+    @Query("select preferences from Preferences preferences where preferences.user.login = ?#{principal.username}")
+    Preferences findForCurrentUser();
 }

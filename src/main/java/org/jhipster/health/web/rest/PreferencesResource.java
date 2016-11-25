@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import org.jhipster.health.domain.Preferences;
 
 import org.jhipster.health.domain.User;
+import org.jhipster.health.domain.enumeration.Units;
 import org.jhipster.health.repository.PreferencesRepository;
 import org.jhipster.health.repository.UserRepository;
 import org.jhipster.health.security.AuthoritiesConstants;
@@ -145,6 +146,26 @@ public class PreferencesResource {
         log.debug("REST request to delete Preferences : {}", id);
         preferencesRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("preferences", id.toString())).build();
+    }
+
+    /**
+     * GET /my-preferences -> get the current user's preferences
+     */
+    @RequestMapping(value = "/my-preferences")
+    @Timed
+    public ResponseEntity<Preferences> getUserPreferences(){
+        String username = SecurityUtils.getCurrentUserLogin();
+        log.debug("REST request to get Preferences: {}", username);
+
+        Preferences pref = preferencesRepository.findForCurrentUser();
+        if (pref != null){
+            return new ResponseEntity<>(pref, HttpStatus.OK);
+        } else {
+            Preferences defaultPreferences = new Preferences();
+            defaultPreferences.setWeekly_goal(100);
+            defaultPreferences.setWeight_units(Units.lb);
+            return new ResponseEntity<>(defaultPreferences, HttpStatus.OK);
+        }
     }
 
 }
